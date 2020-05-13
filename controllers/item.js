@@ -29,14 +29,17 @@ async function getItemDetails(req, res)  {
       fetch(`https://api.mercadolibre.com/items/${id}`).then(res => res.json()),
       fetch(`https://api.mercadolibre.com/items/${id}/description`).then(res => res.json())
     ]);
-    const { plain_text } = description;
-    const { category_id } = details;
-    const categoryUrl = `https://api.mercadolibre.com/categories/${category_id}`;
+    let item = null;
+    let categories = null;
 
-    const {path_from_root} = await fetch(categoryUrl).then(res => res.json());
-    const categories = (path_from_root) ? path_from_root.map(category => category.name) : [];
-    const item = ItemParser.createItemObject(details, plain_text);
-
+    if (details.status !== 404){
+      const { plain_text } = description;
+      const { category_id } = details;
+      const categoryUrl = `https://api.mercadolibre.com/categories/${category_id}`;
+      const {path_from_root} = await fetch(categoryUrl).then(res => res.json());
+      categories = (path_from_root) ? path_from_root.map(category => category.name) : [];
+      item = ItemParser.createItemObject(details, plain_text);
+    }
     res.send({
       author: { name: "Mariano Andres", lastName: "Venesio" },
       item,
