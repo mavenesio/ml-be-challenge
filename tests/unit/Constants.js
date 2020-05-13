@@ -575,8 +575,14 @@ const ParsedItemDetails = {
     picture: "http://mla-s1-p.mlstatic.com/689200-MLA31042404742_062019-I.jpg",
     condition: "new",
     free_shipping: false,
-    sold_quaranty: 150,
-    description: ""
+    sold_quantity: 150,
+    description: "",    
+    pictures: [
+        {
+            url: "http://mla-s1-p.mlstatic.com/689200-MLA31042404742_062019-O.jpg",
+            id: "689200-MLA31042404742_062019",
+        }
+    ],
 };
 
 module.exports = {
