@@ -2,14 +2,10 @@
 const fetch = require("cross-fetch");
 const ItemParser = require('./ItemParser'); 
 
-const currency = {
-  ARS: '$',
-  USD: 'US$'
-}
 async function getItems(req, res)  {
   try {
     const { search } = req.query;
-    const url = `https://api.mercadolibre.com/sites/MLA/search?limit=1&q=${search}`;
+    const url = `https://api.mercadolibre.com/sites/MLA/search?limit=4&q=${search}`;
     const { results, filters } = await fetch(url).then(res => res.json());
     
     const items = ItemParser.parseItems(results);
@@ -43,8 +39,6 @@ async function getItemDetails(req, res)  {
 
 
     res.send({
-      details,
-      plain_text,
       author: { name: "Mariano Andres", lastName: "Venesio" },
       item,
       categories

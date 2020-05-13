@@ -44,8 +44,9 @@ function createItemObject(details, description) {
         picture: details.thumbnail,
         condition: details.condition,
         free_shipping: false,
-        sold_quaranty: details.available_quantity,
+        sold_quantity: details.available_quantity,
         description: description,
+        pictures: details.pictures.map(picture => ({url: picture.url, id: picture.id}))
       };
       return item;
 }
