@@ -1,4 +1,3 @@
-// @ts-nocheck
 const fetch = require("cross-fetch");
 const ItemParser = require('./ItemParser'); 
 
@@ -34,9 +33,9 @@ async function getItemDetails(req, res)  {
     const { category_id } = details;
     const categoryUrl = `https://api.mercadolibre.com/categories/${category_id}`;
 
-    const categories = await fetch(categoryUrl).then(res => res.json()).then(data => data.path_from_root.map(category => category.name));
+    const {path_from_root} = await fetch(categoryUrl).then(res => res.json());
+    const categories = (path_from_root) ? path_from_root.map(category => category.name) : [];
     const item = ItemParser.createItemObject(details, plain_text);
-
 
     res.send({
       author: { name: "Mariano Andres", lastName: "Venesio" },
