@@ -8,6 +8,6 @@ npm test
 ```
 
 ## Technologies used
-* [react.js](https://reactjs.org/) 
+* [node.js](https://nodejs.org/en/) 
 * [Express.js](https://expressjs.com/)
 * [jest-js](https://jestjs.io/)
