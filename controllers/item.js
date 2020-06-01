@@ -4,7 +4,7 @@ const ItemParser = require('./ItemParser');
 async function getItems(req, res)  {
   try {
     const { search } = req.query;
-    const url = `https://api.mercadolibre.com/sites/MLA/search?limit=4&q=${search}`;
+    const url = `${process.env.API_URL}sites/MLA/search?limit=4&q=${search}`;
     const { results, filters } = await fetch(url).then(res => res.json());
     
     const items = ItemParser.parseItems(results);
@@ -26,8 +26,8 @@ async function getItemDetails(req, res)  {
   try {
     const { id } = req.query;
     const [details, description] = await Promise.all([
-      fetch(`https://api.mercadolibre.com/items/${id}`).then(res => res.json()),
-      fetch(`https://api.mercadolibre.com/items/${id}/description`).then(res => res.json())
+      fetch(`${process.env.API_URL}items/${id}`).then(res => res.json()),
+      fetch(`${process.env.API_URL}items/${id}/description`).then(res => res.json())
     ]);
     let item = null;
     let categories = null;
@@ -35,7 +35,7 @@ async function getItemDetails(req, res)  {
     if (details.status !== 404){
       const { plain_text } = description;
       const { category_id } = details;
-      const categoryUrl = `https://api.mercadolibre.com/categories/${category_id}`;
+      const categoryUrl = `${process.env.API_URL}categories/${category_id}`;
       const {path_from_root} = await fetch(categoryUrl).then(res => res.json());
       categories = (path_from_root) ? path_from_root.map(category => category.name) : [];
       item = ItemParser.createItemObject(details, plain_text);
