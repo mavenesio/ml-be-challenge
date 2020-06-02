@@ -12,12 +12,6 @@ Install npm packages:
 ```bash
 npm install
 ```
-## Development
-```bash
-npm install
-npm start
-npm test
-```
 ### Development
 ```
 npm install
